@@ -7,9 +7,9 @@ module WorkflowCore
     belongs_to :workflow
 
     has_many :input_places, dependent: :nullify,
-             foreign_key: "output_transition_id", class_name: "WorkflowCore::Place"
-    has_many :output_places, dependent: :destroy,
              foreign_key: "input_transition_id", class_name: "WorkflowCore::Place"
+    has_many :output_places, dependent: :destroy,
+             foreign_key: "output_transition_id", class_name: "WorkflowCore::Place"
 
     def fire(_token)
       raise NotImplementedError
