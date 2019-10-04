@@ -57,3 +57,6 @@ gem "globalid"
 gem "script_core"
 
 gem "graphviz"
+gem "pg"
+gem 'dotenv-rails'
+gem 'pry-rails'

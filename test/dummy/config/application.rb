@@ -7,6 +7,8 @@ require "rails/all"
 Bundler.require(*Rails.groups)
 require "workflow_core"
 
+Dotenv::Railtie.load
+
 Dir[Pathname.new(File.dirname(__FILE__)).realpath.parent.join("lib", "monkey_patches", "*.rb")].map do |file|
   require file
 end

@@ -86,6 +86,10 @@ GEM
     concurrent-ruby (1.1.5)
     crass (1.0.4)
     debug_inspector (0.0.3)
+    dotenv (2.7.5)
+    dotenv-rails (2.7.5)
+      dotenv (= 2.7.5)
+      railties (>= 3.2, < 6.1)
     erubi (1.8.0)
     execjs (2.7.0)
     ffi (1.11.1)
@@ -126,6 +130,7 @@ GEM
     parallel (1.17.0)
     parser (2.6.3.0)
       ast (~> 2.4.0)
+    pg (1.1.4)
     process-group (1.1.0)
     process-pipeline (1.0.1)
       process-group
@@ -240,11 +245,13 @@ DEPENDENCIES
   binding_of_caller
   bulma-rails
   cocoon
+  dotenv-rails
   form_core
   globalid
   graphviz
   jquery-rails
   listen (>= 3.0.5, < 3.2)
+  pg
   pry-byebug
   pry-rails
   puma
