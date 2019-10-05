@@ -8,5 +8,6 @@ module WorkflowCore
     has_many :transition_role_assigns
     has_many :context_assignments
     has_many :cases
+    has_many :case_assignments
   end
 end

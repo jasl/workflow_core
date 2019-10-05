@@ -4,6 +4,8 @@ module WorkflowCore
     belongs_to :context
     belongs_to :obj, optional: true
 
+    has_many :case_assignments
+
     enum state: {
       created: 0,
       active: 1,
