@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_05_160114) do
+ActiveRecord::Schema.define(version: 2019_10_05_163338) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,6 +66,14 @@ ActiveRecord::Schema.define(version: 2019_10_05_160114) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "wf_case_assignments", comment: "Manual per-case assignments of roles to parties.", force: :cascade do |t|
+    t.bigint "workflow_id"
+    t.bigint "role_id"
+    t.bigint "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "wf_cases", comment: "The instance of a process, e.g. the case of publishing one article, \nthe case of handling one insurance claim, the case of handling\none ecommerce order, of fixing one ticket-tracker ticket.\n", force: :cascade do |t|
     t.bigint "workflow_id"
     t.bigint "context_id"
@@ -105,6 +113,28 @@ ActiveRecord::Schema.define(version: 2019_10_05_160114) do
     t.bigint "workflow_id"
     t.string "name"
     t.integer "sort_order", default: 0
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "wf_task_assignments", force: :cascade do |t|
+    t.bigint "task_id"
+    t.bigint "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "wf_tasks", comment: "The tasks that need to be done, who can do it, and what state it''s in.\nA task is the instance of a transition.\n", force: :cascade do |t|
+    t.bigint "case_id"
+    t.bigint "workflow_id"
+    t.bigint "transition_id"
+    t.integer "state", default: 0, comment: "0-enabled, 1-started, 2-canceled, 3-finished,4-overridden"
+    t.datetime "enabled_at", default: -> { "timezone('utc'::text, now())" }
+    t.datetime "started_at"
+    t.datetime "canceled_at"
+    t.datetime "finished_at"
+    t.datetime "overridden_at"
+    t.datetime "trigger_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
