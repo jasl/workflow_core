@@ -1,6 +1,6 @@
 module WorkflowCore
   class Wf::Arc < ApplicationRecord
-    self.table_name = 'wf_arcs'
+    #self.table_name = 'wf_arcs'
     belongs_to :workflow
     belongs_to :transition
     belongs_to :place
