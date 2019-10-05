@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_05_163338) do
+ActiveRecord::Schema.define(version: 2019_10_05_164234) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -135,6 +135,21 @@ ActiveRecord::Schema.define(version: 2019_10_05_163338) do
     t.datetime "finished_at"
     t.datetime "overridden_at"
     t.datetime "trigger_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "wf_tokens", force: :cascade do |t|
+    t.bigint "workflow_id"
+    t.bigint "case_id"
+    t.bigint "task_id"
+    t.bigint "place_id"
+    t.integer "state", default: 0, comment: "0-free, 1-locked, 2-canceled, 3-consumed"
+    t.bigint "locked_task_id"
+    t.datetime "produced_at", default: -> { "timezone('utc'::text, now())" }
+    t.datetime "locked_at"
+    t.datetime "canceled_at"
+    t.datetime "consumed_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

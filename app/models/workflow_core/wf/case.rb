@@ -6,6 +6,7 @@ module WorkflowCore
 
     has_many :case_assignments
     has_many :tasks
+    has_many :tokens
 
     enum state: {
       created: 0,

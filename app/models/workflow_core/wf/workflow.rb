@@ -10,5 +10,6 @@ module WorkflowCore
     has_many :cases
     has_many :case_assignments
     has_many :tasks
+    has_many :tokens
   end
 end
