@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_05_101315) do
+ActiveRecord::Schema.define(version: 2019_10_05_102107) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,15 @@ ActiveRecord::Schema.define(version: 2019_10_05_101315) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["group_id"], name: "index_users_on_group_id"
+  end
+
+  create_table "wf_places", comment: "The circles of the petri net. These hold the tokens representing the overall\n  state of the workflow.", force: :cascade do |t|
+    t.bigint "workflow_id"
+    t.string "name"
+    t.integer "sort_order", default: 0
+    t.integer "kind", default: 0, comment: "类型：0-normal，1-start，2-end"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "wf_workflows", comment: "Parent table for the workflow definition", force: :cascade do |t|
