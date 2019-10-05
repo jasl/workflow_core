@@ -5,6 +5,7 @@ module WorkflowCore
     has_many :transitions
     has_many :arcs
     has_many :roles
-    has_many :transition_role_assign
+    has_many :transition_role_assigns
+    has_many :context_assignments
   end
 end

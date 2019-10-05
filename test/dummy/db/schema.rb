@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_05_134020) do
+ActiveRecord::Schema.define(version: 2019_10_05_155206) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,6 +62,22 @@ ActiveRecord::Schema.define(version: 2019_10_05_134020) do
     t.bigint "transition_id"
     t.bigint "place_id"
     t.integer "direction", default: 0, comment: "0-in, 1-out"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "wf_context_assignments", comment: "Static (default) per-context assignments of roles to parties. ", force: :cascade do |t|
+    t.bigint "workflow_id"
+    t.bigint "context_id"
+    t.bigint "role_id"
+    t.bigint "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "wf_contexts", comment: "The context of a workflow holds everything that''s not directly \npart of the Petri Net structure, the stuff that''s likely to\nbe changed as the workflow is applied in a real business, and that\nyou will want to customize across different departments of the \nsame business. It includes assignments of transitions to parties,\nthe call-backs, etc.\n", force: :cascade do |t|
+    t.string "context_key"
+    t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
