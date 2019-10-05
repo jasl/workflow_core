@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_05_102107) do
+ActiveRecord::Schema.define(version: 2019_10_05_105000) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,6 +62,15 @@ ActiveRecord::Schema.define(version: 2019_10_05_102107) do
     t.string "name"
     t.integer "sort_order", default: 0
     t.integer "kind", default: 0, comment: "类型：0-normal，1-start，2-end"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "wf_transitions", comment: "The squares in the petri net. The things that somebody (or something) actually does.", force: :cascade do |t|
+    t.string "name"
+    t.bigint "workflow_id"
+    t.integer "sort_order", default: 0
+    t.integer "trigger_type", default: 0, comment: "0-user,1-automatic, 2-message,3-time"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
