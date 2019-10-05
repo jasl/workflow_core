@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_05_125217) do
+ActiveRecord::Schema.define(version: 2019_10_05_134020) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,6 +75,22 @@ ActiveRecord::Schema.define(version: 2019_10_05_125217) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "wf_roles", comment: "A process has certain roles associated with it, such as \"submitter\", \n\"reviewer\", \"editor\", \"claimant\", etc. For each transition, then, you\nspecify what role is to perform that task. Thus, two or more tasks can be\nperformed by one and the same role, so that when the role is reassigned,\nit reflects assignments of both tasks. Users and parties are then assigned\nto roles instead of directly to tasks.\n", force: :cascade do |t|
+    t.bigint "workflow_id"
+    t.string "name"
+    t.integer "sort_order", default: 0
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "wf_transition_role_assigns", comment: "When part of the output of one task is to assign users to a role,\nspecify that this is the case by inserting a row here.\n", force: :cascade do |t|
+    t.bigint "workflow_id"
+    t.bigint "transition_id"
+    t.bigint "role_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "wf_transitions", comment: "The squares in the petri net. The things that somebody (or something) actually does.", force: :cascade do |t|
     t.string "name"
     t.bigint "workflow_id"
@@ -84,6 +100,7 @@ ActiveRecord::Schema.define(version: 2019_10_05_125217) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "formable_type", comment: "The workflow attributes that should be set when the given transition is fired."
     t.bigint "formable_id"
+    t.bigint "role_id", comment: "what role does this transition belong to (only for user-triggered transitions)"
   end
 
   create_table "wf_workflows", comment: "Parent table for the workflow definition", force: :cascade do |t|
