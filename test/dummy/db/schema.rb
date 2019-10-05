@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_05_105000) do
+ActiveRecord::Schema.define(version: 2019_10_05_123314) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,15 @@ ActiveRecord::Schema.define(version: 2019_10_05_105000) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["group_id"], name: "index_users_on_group_id"
+  end
+
+  create_table "wf_arcs", comment: "The arcs of the workflow petri net.\nArcs always go between a transition and a place.\nThe direction is relative to the transition here, i.e.\nin means it goes into the transition, out means it goes\naway from the transition.\n", force: :cascade do |t|
+    t.bigint "workflow_id"
+    t.bigint "transition_id"
+    t.bigint "place_id"
+    t.integer "direction", default: 0, comment: "0-in, 1-out"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "wf_places", comment: "The circles of the petri net. These hold the tokens representing the overall\n  state of the workflow.", force: :cascade do |t|

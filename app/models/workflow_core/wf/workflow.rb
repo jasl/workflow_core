@@ -3,5 +3,6 @@ module WorkflowCore
     self.table_name = 'wf_workflows'
     has_many :places
     has_many :transitions
+    has_many :arcs
   end
 end
