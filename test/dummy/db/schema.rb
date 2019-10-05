@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_05_155206) do
+ActiveRecord::Schema.define(version: 2019_10_05_160114) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,6 +62,16 @@ ActiveRecord::Schema.define(version: 2019_10_05_155206) do
     t.bigint "transition_id"
     t.bigint "place_id"
     t.integer "direction", default: 0, comment: "0-in, 1-out"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "wf_cases", comment: "The instance of a process, e.g. the case of publishing one article, \nthe case of handling one insurance claim, the case of handling\none ecommerce order, of fixing one ticket-tracker ticket.\n", force: :cascade do |t|
+    t.bigint "workflow_id"
+    t.bigint "context_id"
+    t.bigint "obj_id", comment: "A case is generally about some other object, e.g., an insurance claim, an article,\na ticket, an order, etc. This is the place to store the reference to that object.\nIt is not uncommong to have more than one case for the same object, e.g., we might \nhave one process for evaluating and honoring an insurance claim, and another for archiving\nlegal information about a claim.\n"
+    t.string "obj_type"
+    t.integer "state", default: 0, comment: "0-created, 1-active, 2-suspended, 3-canceled, 4-finished"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

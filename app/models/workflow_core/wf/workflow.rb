@@ -7,5 +7,6 @@ module WorkflowCore
     has_many :roles
     has_many :transition_role_assigns
     has_many :context_assignments
+    has_many :cases
   end
 end
