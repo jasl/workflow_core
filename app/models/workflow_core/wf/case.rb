@@ -5,6 +5,7 @@ module WorkflowCore
     belongs_to :obj, optional: true
 
     has_many :case_assignments
+    has_many :tasks
 
     enum state: {
       created: 0,

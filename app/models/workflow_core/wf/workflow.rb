@@ -9,5 +9,6 @@ module WorkflowCore
     has_many :context_assignments
     has_many :cases
     has_many :case_assignments
+    has_many :tasks
   end
 end
